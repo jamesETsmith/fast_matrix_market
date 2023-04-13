@@ -38,6 +38,20 @@ jobs:
         cd ..
         echo "FMM_CMAKE_FLAGS=-DCMAKE_MODULE_PATH=${{ github.workspace }}/grb/lib/cmake/SuiteSparse -DGraphBLAS_ROOT=${{ github.workspace }}/grb/" >> $GITHUB_ENV
 
+    - name: Install GraphBLAS (windows)
+      if: contains(matrix.os, 'windows')
+        # Install pre-built GraphBLAS from conda-forge because GraphBLAS packages in Ubuntu repos are too old to be useful.
+        # See LAGraph's workflow: https://github.com/GraphBLAS/LAGraph/blob/stable/.github/workflows/build.yml
+      run: |
+        mkdir -p grb
+        cd grb
+        wget --quiet https://anaconda.org/conda-forge/graphblas/7.4.4/download/win-64/graphblas-7.4.4-h63175ca_0.conda
+        unzip graphblas-7.4.4-h63175ca_0.conda
+        tar xvf pkg-graphblas-7.4.4-h63175ca_0.tar.zst
+        cd ..
+        echo "FMM_CMAKE_FLAGS=-DCMAKE_MODULE_PATH=${{ github.workspace }}\grb\lib\cmake\SuiteSparse -DGraphBLAS_ROOT=${{ github.workspace }}\grb\" >> $GITHUB_ENV
+
+
     - name: Install GraphBLAS (macOS)
       if: contains(matrix.os, 'macos')
         # install suite-sparse which includes GraphBLAS and also FindGraphBLAS.cmake

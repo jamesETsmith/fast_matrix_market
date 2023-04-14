@@ -45,7 +45,7 @@ jobs:
       run: |
         mkdir -p grb
         cd grb
-        curl https://anaconda.org/conda-forge/graphblas/7.4.4/download/win-64/graphblas-7.4.4-h63175ca_0.conda -O graphblas-7.4.4-h63175ca_0.conda
+        curl https://anaconda.org/conda-forge/graphblas/7.4.4/download/win-64/graphblas-7.4.4-h63175ca_0.conda -o graphblas-7.4.4-h63175ca_0.conda
         dir
         unzip graphblas-7.4.4-h63175ca_0.conda
         dir
